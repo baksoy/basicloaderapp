@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">LoaderApp</string>
+
+
+    <string-array name="flowers">
+        <item>Amaryllis</item>
+        <item>Azalea</item>
+        <item>Begonia</item>
+        <item>Bergamot</item>
+        <item>Bluebell</item>
+        <item>Carnation</item>
+        <item>Cherry Blossom</item>
+        <item>Clover</item>
+        <item>Daisy</item>
+        <item>Dahlia</item>
+        <item>Daffodil</item>
+        <item>Primrose</item>
+        <item>Hibiscus</item>
+        <item>Heather</item>
+        <item>Jasmine</item>
+        <item>Lavender</item>
+        <item>Lilac</item>
+        <item>Lily</item>
+
+    </string-array>
+
+</resources>

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by beraaksoy on 5/28/16.
  * AsyncTaskLoader is great for using with Databases to load query results in a background thread.
- *
+ * <p/>
  * Loader goes through few steps.
  * 1) START state, ie. isStarted
  * 2) STOP state
@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class StringLoader extends AsyncTaskLoader<List<String>> {
 
+    private List<String> cachedData;
 
     public StringLoader(Context context) {
         super(context);
@@ -33,18 +34,31 @@ public class StringLoader extends AsyncTaskLoader<List<String>> {
 
     @Override
     protected void onStartLoading() {
-        forceLoad(); // forces loadInBackground to be called
+        if (cachedData == null) {
+            forceLoad(); // forces loadInBackground to be called
+        } else {
+            super.deliverResult(cachedData); //if we have cached data, deliver that instead of loading again
+        }
     }
 
     @Override
     public List<String> loadInBackground() {
+        //Trying to block our loader from doing anything to simulate a database query
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         List<String> data = Arrays.asList(getContext().getResources().getStringArray(R.array.flowers));
         return data;
     }
 
     @Override
     public void deliverResult(List<String> data) {
-        //super.deliverResult(data) will deliver the data result to wherever the results are expected
+        // cachedData will get a copy of the data and also super.deliverResult(data)
+        // will deliver the data result to whoever is expecting the resultset
+        cachedData = data;
         super.deliverResult(data);
     }
 }
